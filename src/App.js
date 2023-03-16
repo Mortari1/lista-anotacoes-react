@@ -43,24 +43,37 @@ function App() {
     setModal(false);
   }
 
-  const marcarConcluida = (id)=>{
-    let novasTrefas = tarefas.filter((val)=>{
+  const marcarConcluida = (id,opt)=>{
+    let novasTarefas = tarefas.filter((val)=>{
      
       if(val.id === id){
-        val.finalizada = true;
+        val.finalizada = opt;
         
       }
       
       return val;
     })
 
-    setTarefas(novasTrefas);
-    window.localStorage.setItem('tarefas',JSON.stringify(novasTrefas));
+    setTarefas(novasTarefas);
+    window.localStorage.setItem('tarefas',JSON.stringify(novasTarefas));
   }
+
+  
   const [modal, setModal] = useState(false);
   //abre a modal para adicionar tarefas
   const abrirModal = () => {
     setModal(!modal);
+  }
+
+  const deletarTarefa = (id) =>{
+   let pegarTarefas = tarefas.filter((val)=>{
+    if(val.id !== id){
+      
+      return val;
+    }
+   })
+
+   setTarefas(pegarTarefas);
   }
 
   useEffect(()=>{
@@ -93,11 +106,17 @@ function App() {
           tarefas.map((val)=>{
             if(!val.finalizada){
               return(
-                <p onClick={()=>marcarConcluida(val.id)}>{val.tarefa}<span></span></p>
+                <div className='tarefaSingle'>
+                  <p onClick={()=>marcarConcluida(val.id,true)}>{val.tarefa}</p>
+                  <span onClick={()=>deletarTarefa(val.id)}>(X)</span>
+                </div>
               );
             }else{
               return(
-                <p onClick={()=>marcarConcluida(val.id)} style={{textDecoration:'line-through'}}>{val.tarefa}<span></span></p>
+                <div className='tarefaSingle'>
+                  <p onClick={()=>marcarConcluida(val.id,false)} style={{textDecoration:'line-through'}}>{val.tarefa}</p>
+                  <span onClick={()=>deletarTarefa(val.id)}>(X)</span>
+                </div>
               );
             }
           })

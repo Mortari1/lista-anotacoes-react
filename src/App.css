@@ -27,7 +27,25 @@ body{
   cursor: pointer;
   font-size: 15px;
   padding: 8px 10px;
-  border-bottom: 2px dotted#ccc;
+  
+}
+
+.tarefaSingle{
+  font-size: 15px;
+  padding: 8px 10px;
+  border-bottom: 2px dotted #ccc;
+  display: flex;
+}
+
+.tarefaSingle p{
+  cursor: pointer;
+}
+
+.tarefaSingle span{
+  cursor: pointer;
+  color: red;
+  display: flex;
+  margin-top: 10px;
 }
 .addTarefa{
   position: fixed;
